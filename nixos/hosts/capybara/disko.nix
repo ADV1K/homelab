@@ -55,12 +55,12 @@
             };
 
             # Swap Partition
-            #swap = {
-            #  size = "2G";
-            #  content = {
-            #    type = "swap";
-            #  };
-            #};
+            swap = {
+              size = "2G";
+              content = {
+                type = "swap";
+              };
+            };
           };
         };
       };

@@ -14,19 +14,5 @@
   boot.kernelParams = [ "net.ifnames=0" "biosdevname=0" ];
   boot.extraModulePackages = [ ];
 
-  # Managed by disko
-  # fileSystems."/" =
-  #   { device = "/dev/disk/by-uuid/97ad279d-938a-46e0-8dd1-58be2d784884";
-  #     fsType = "ext4";
-  #   };
-
-  # fileSystems."/boot" =
-  #   { device = "/dev/disk/by-uuid/4C59-23EE";
-  #     fsType = "vfat";
-  #     options = [ "fmask=0077" "dmask=0077" ];
-  #   };
-
-  swapDevices = [ ];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

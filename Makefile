@@ -1,15 +1,18 @@
-.PHONY: apply
+.PHONY: apply partition format mount install
 
-export NIX_CONFIG="experimental-features = nix-command flakes"
+NIX_FLAGS=--extra-experimental-features "nix-command flakes"
 
-HOSTNAME := $(shell hostname)
+test:
+	nixos-rebuild $(NIX_FLAGS) dry-build --flake ./nixos#capybara
 
 apply:
-	sudo nixos-rebuild switch --flake ./nixos#$(HOSTNAME)
+	nixos-rebuild $(NIX_FLAGS) switch --flake ./nixos#capybara
 
-format:
-	@echo "⚠️ DANGEROUS: wipes disk and applies partitioning"
-	sudo nix run github:nix-community/disko -- --mode disko ./nixos/disko.nix
+partition:
+	nix $(NIX_FLAGS) run github:nix-community/disko -- --mode disko --flake ./nixos#capybara
 
-disko-mount:
-	sudo nix run github:nix-community/disko -- --mode mount ./nixos/disko.nix
+mount:
+	nix $(NIX_FLAGS) run github:nix-community/disko -- --mode mount --flake ./nixos#capybara
+
+install: partition
+	nixos-install --flake ./nixos#capybara --no-root-passwd
