@@ -105,6 +105,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = true; # No root login, no password.
   users.users.advik = {
+    initialPassword = "nixie";
     isNormalUser = true;
     description = "Advik";
     extraGroups = [ "wheel" "docker" ];
