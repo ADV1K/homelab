@@ -1,12 +1,12 @@
 .PHONY: apply partition format mount install
 
-NIX_FLAGS=--extra-experimental-features "nix-command flakes"
+NIX_FLAGS=--extra-experimental-features nix-command --extra-experimental-features flakes
 
 test:
-	nixos-rebuild $(NIX_FLAGS) dry-build --flake ./nixos#capybara
+	nixos-rebuild dry-build --flake ./nixos#capybara
 
 apply:
-	nixos-rebuild $(NIX_FLAGS) switch --flake ./nixos#capybara
+	nixos-rebuild switch --flake ./nixos#capybara
 
 partition:
 	nix $(NIX_FLAGS) run github:nix-community/disko -- --mode disko --flake ./nixos#capybara

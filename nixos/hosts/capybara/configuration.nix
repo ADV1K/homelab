@@ -109,7 +109,7 @@
     isNormalUser = true;
     description = "Advik";
     extraGroups = [ "wheel" "docker" ];
-    shell = pkgs.nushell;
+    shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPfBhL4psTGBlo+emwtTPdaySzaoScsbiKl4Z1tx1SXF"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMc4CmyjdX1qaResQVgFLipk2hK1YiUpCI1dJROIoHEP"
@@ -121,15 +121,18 @@
   # modules/shell.nix
   nixpkgs.config.allowUnfree = true;
   programs.starship.enable = true;
+  programs.fish.enable = true;
   virtualisation.docker.enable = true;
   environment.systemPackages = with pkgs; [
     # Shell
+    fish
+    direnv
+    zoxide
     nushell
     starship
-    zoxide
-    direnv
 
     # Core CLI
+    gh
     osc
     git
     man
@@ -153,12 +156,13 @@
     direnv
     just
     stow
-    fish
     curlie
     delta
     atuin
     curl
     docker-compose
+    opencode
+    gemini-cli-bin
   ];
 
   # TODO: this doesn't work, find another way
@@ -174,6 +178,6 @@
 
   environment.variables = {
     EDITOR = "neovim";
-    SHELL = "${pkgs.nushell}/bin/nu";
+    SHELL = "${pkgs.fish}/bin/fish";
   };
 }
